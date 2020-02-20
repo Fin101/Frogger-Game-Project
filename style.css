@@ -8,7 +8,10 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 0
+  margin: 0;
+  background-image: url('https://mir-s3-cdn-cf.behance.net/projects/404/b376ac56329229.Y3JvcCw5NjUsNzU1LDM0Nyww.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .grid {
@@ -45,7 +48,7 @@ body {
 }
 
 .road {
-background-color: rgb(124, 124, 124);
+background-color: rgba(124, 124, 124, 0.5);
 }
 
 .water {

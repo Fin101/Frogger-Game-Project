@@ -5,14 +5,15 @@ function setUpGame() {
   moveMorty()
   loadGrass()
   loadRoad()
-  loadWater()
   loadCar()
-  moveCars()
+  moveCarsRight()
+  moveCarsLeft()
 
 }
 
 let morty = 390
-const carsArray = [361, 366, 370, 376]
+const carsArrayLeft = [20, 25, 29, 34, 38, 45, 51, 57, 62, 70, 73, 77, 83, 89, 99, 105, 109, 114, 120, 124, 129, 133, 139, 141, 146, 150, 155, 160, 163, 167, 171, 174, 179, 187, 190, 195]
+const carsArrayRight = [200, 205, 208, 213, 217, 220, 222, 227, 235, 339, 245, 249, 255, 257, 260, 265, 270, 278, 281, 288, 291, 296, 300, 309, 315, 319, 325, 330, 333, 340, 346, 350, 354, 361, 366, 370, 376]
 const width = 20
 const gridCellCount = width * width
 const cells = []
@@ -72,55 +73,80 @@ function loadGrass() {
   for (let i = 380; i <= 399; i++) {
     cells[i].classList.add('grass')
   }
-  for (let i = 180; i <= 199; i++) {
-    cells[i].classList.add('grass')
-  }
+  // for (let i = 180; i <= 199; i++) {
+  //   cells[i].classList.add('grass')
+  // }
   for (let i = 0; i <= 19; i++) {
     cells[i].classList.add('grass')
   }
 }
 
 function loadRoad() {
-  for (let i = 200; i <= 379; i++) {
+  for (let i = 20; i <= 379; i++) {
     cells[i].classList.add('road')
   }
 }
 
-function loadWater() {
-  for (let i = 20; i <= 179; i++) {
-    cells[i].classList.add('water')
-  }
-}
+// function loadWater() {
+//   for (let i = 20; i <= 179; i++) {
+//     cells[i].classList.add('water')
+//   }
+// }
 
 function loadCar() {
-  for (let i = 361; i < 377; i++) {
-    if (carsArray.includes(i)) {
+  for (let i = 0; i < 377; i++) {
+    if (carsArrayRight.includes(i) || carsArrayLeft.includes(i)) {
       cells[i].classList.add('car')
     }
   }
 }
 
-function moveCars() {
+function moveCarsRight() {
   // setting interval for all the cars
-  carIntervalId = setInterval(() => {
+  carRightIntervalId = setInterval(() => {
     // looping through each car
-    for (let i = 0; i < carsArray.length; i++) {
+    for (let i = 0; i < carsArrayRight.length; i++) {
       // checking if car is at the end of the row. If the remainder of carsArray[i] divided by width is equal to 19, then we know it's hit the edge of the grid.
-      if (carsArray[i] % width === (width - 1)) {
+      if (carsArrayRight[i] % width === (width - 1)) {
         // If true, we remove class 'cars' from current cell
-        cells[carsArray[i]].classList.remove('car')
+        cells[carsArrayRight[i]].classList.remove('car')
         // we reassign carsArray[i] to equal carsArray[i] - width (beginning of row)
-        carsArray[i] = carsArray[i] - width
+        carsArrayRight[i] = carsArrayRight[i] - width
       }
       // currently = cell 359
-      cells[carsArray[i]].classList.remove('car')
+      cells[carsArrayRight[i]].classList.remove('car')
 
-      carsArray[i]++
+      carsArrayRight[i]++
       // add 1 cell to equal cell 360
-      cells[carsArray[i]].classList.add('car')
+      cells[carsArrayRight[i]].classList.add('car')
       // adding car to 360
     }
-  }, 500)
+
+  }, 300)
+}
+
+function moveCarsLeft() {
+  // setting interval for all the cars
+  carLeftIntervalId = setInterval(() => {
+    // looping through each car
+    for (let i = 0; i < carsArrayLeft.length; i++) {
+      // checking if car is at the end of the row (left). If the remainder of carsArray[i] divided by width is equal to 0, then we know it's hit the LEFT edge of the grid.
+      if (carsArrayLeft[i] % width === 0) {
+        // If true, we remove class 'cars' from current cell
+        cells[carsArrayLeft[i]].classList.remove('car')
+        // we reassign carsArray[i] to equal carsArray[i] + width (end of row)
+        carsArrayLeft[i] = carsArrayLeft[i] + width
+      }
+      // currently = cell 20
+      cells[carsArrayLeft[i]].classList.remove('car')
+
+      carsArrayLeft[i]--
+      // minus 1 cell to equal cell 38
+      cells[carsArrayLeft[i]].classList.add('car')
+      // adding car to 39
+    }
+
+  }, 300)
 }
 
 window.addEventListener('DOMContentLoaded', setUpGame)
