@@ -32,3 +32,23 @@ body {
   background-repeat: no-repeat;
   background-position: center;
 }
+
+.car {
+  background-image: url('https://library.kissclipart.com/20180829/hge/kissclipart-cartoon-car-top-view-clipart-sports-car-clip-art-56e61bf6d63bc215.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.grass {
+  background-image: url('https://cdn2.f-cdn.com/contestentries/44321/396651/526e0f3be440b_thumb900.jpg');
+}
+
+.road {
+background-color: rgb(124, 124, 124);
+}
+
+.water {
+  background-color: rgb(0, 195, 255);
+}
+
