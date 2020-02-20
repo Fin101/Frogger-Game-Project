@@ -5,7 +5,6 @@ function setUpGame() {
   moveMorty()
   loadGrass()
   loadRoad()
-  loadCar()
   moveCarsRight()
   moveCarsLeft()
 
@@ -93,10 +92,18 @@ function loadRoad() {
 //   }
 // }
 
-function loadCar() {
-  for (let i = 0; i < 377; i++) {
-    if (carsArrayRight.includes(i) || carsArrayLeft.includes(i)) {
-      cells[i].classList.add('car')
+function loadCarLeft() {
+  for (let i = 0; i < 200; i++) {
+    if (carsArrayLeft.includes(i)) {
+      cells[i].classList.add('carLeft')
+    }
+  }
+}
+
+function loadCarRight() {
+  for (let i = 201; i < 379; i++) {
+    if (carsArrayRight.includes(i)) {
+      cells[i].classList.add('carRight')
     }
   }
 }
@@ -109,16 +116,16 @@ function moveCarsRight() {
       // checking if car is at the end of the row. If the remainder of carsArray[i] divided by width is equal to 19, then we know it's hit the edge of the grid.
       if (carsArrayRight[i] % width === (width - 1)) {
         // If true, we remove class 'cars' from current cell
-        cells[carsArrayRight[i]].classList.remove('car')
+        cells[carsArrayRight[i]].classList.remove('carRight')
         // we reassign carsArray[i] to equal carsArray[i] - width (beginning of row)
         carsArrayRight[i] = carsArrayRight[i] - width
       }
       // currently = cell 359
-      cells[carsArrayRight[i]].classList.remove('car')
+      cells[carsArrayRight[i]].classList.remove('carRight')
 
       carsArrayRight[i]++
       // add 1 cell to equal cell 360
-      cells[carsArrayRight[i]].classList.add('car')
+      cells[carsArrayRight[i]].classList.add('carRight')
       // adding car to 360
     }
 
@@ -133,16 +140,16 @@ function moveCarsLeft() {
       // checking if car is at the end of the row (left). If the remainder of carsArray[i] divided by width is equal to 0, then we know it's hit the LEFT edge of the grid.
       if (carsArrayLeft[i] % width === 0) {
         // If true, we remove class 'cars' from current cell
-        cells[carsArrayLeft[i]].classList.remove('car')
+        cells[carsArrayLeft[i]].classList.remove('carLeft')
         // we reassign carsArray[i] to equal carsArray[i] + width (end of row)
         carsArrayLeft[i] = carsArrayLeft[i] + width
       }
       // currently = cell 20
-      cells[carsArrayLeft[i]].classList.remove('car')
+      cells[carsArrayLeft[i]].classList.remove('carLeft')
 
       carsArrayLeft[i]--
       // minus 1 cell to equal cell 38
-      cells[carsArrayLeft[i]].classList.add('car')
+      cells[carsArrayLeft[i]].classList.add('carLeft')
       // adding car to 39
     }
 

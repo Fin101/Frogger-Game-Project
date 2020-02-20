@@ -26,18 +26,27 @@ body {
 .cell {
   width: 5%;
   height: 5%;
-  border: 1px solid;
+  border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 .morty {
-  background-image: url('https://www.pngitem.com/pimgs/m/43-438710_morty-png-rickandmorty-scaredmorty1500-scared-morty-png-transparent.png');
+  background-image: url(images/morty.png);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
 
-.car {
-  background-image: url('https://library.kissclipart.com/20180829/hge/kissclipart-cartoon-car-top-view-clipart-sports-car-clip-art-56e61bf6d63bc215.jpg');
+.carRight {
+  background-image: url(images/rocket.png);
+  transform: rotate(90deg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.carLeft {
+  background-image: url(images/rocket.png);
+  transform: rotate(270deg);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
