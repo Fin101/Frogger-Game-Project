@@ -19,6 +19,10 @@ const gridCellCount = width * width
 const cells = []
 let carIntervalId
 let lives = 3
+let carRightIntervalId
+let carLeftIntervalId
+let mortyDiesIntervalId
+let gameFinished = false
 
 
 function loadGrid() {
@@ -37,38 +41,61 @@ function loadGrid() {
   }
 }
 
-function moveMorty() {
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'ArrowRight') {
-      if (morty === cells.length - 1) {
-        return
-      }
+function mortyDies() {
+
+  const livesCounter = document.querySelector('.livesCounter')
+  const mrMeeseeksSpeachBox = document.querySelector('.mrMeeseeksSpeachBox')
+
+  for (let i = 0; i < 399; i++) {
+    if (carsArrayLeft.includes(morty) || carsArrayRight.includes(morty)) {
+      console.log('hit')
       cells[morty].classList.remove('morty')
-      morty += 1
+      morty = 10
       cells[morty].classList.add('morty')
-    } else if (event.key === 'ArrowLeft') {
-      if (morty === 0) {
-        return
-      }
-      cells[morty].classList.remove('morty')
-      morty -= 1
-      cells[morty].classList.add('morty')
-    } else if (event.key === 'ArrowUp') {
-      if (morty < width) {
-        return
-      }
-      cells[morty].classList.remove('morty')
-      morty -= width
-      cells[morty].classList.add('morty')
-    } else if (event.key === 'ArrowDown') {
-      if (morty > cells.length - width - 1) {
-        return
-      }
-      cells[morty].classList.remove('morty')
-      morty += width
-      cells[morty].classList.add('morty')
+      livesCounter.innerHTML = `Lives: ${lives -= 1}`
+      mrMeeseeksSpeachBox.innerHTML = '"Existance is PAIN Morty!"'
+      gameOver()
     }
-  })
+  }
+}
+
+function moveMorty() {
+  if (gameFinished === true) {
+    return 
+  } else {
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowRight') {
+        if (morty === cells.length - 1) {
+          return
+        }
+        cells[morty].classList.remove('morty')
+        morty += 1
+        cells[morty].classList.add('morty')
+      } else if (event.key === 'ArrowLeft') {
+        if (morty === 0) {
+          return
+        }
+        cells[morty].classList.remove('morty')
+        morty -= 1
+        cells[morty].classList.add('morty')
+      } else if (event.key === 'ArrowUp') {
+        if (morty < width) {
+          return
+        }
+        cells[morty].classList.remove('morty')
+        morty -= width
+        cells[morty].classList.add('morty')
+      } else if (event.key === 'ArrowDown') {
+        if (morty > cells.length - width - 1) {
+          return
+        }
+        cells[morty].classList.remove('morty')
+        morty += width
+        cells[morty].classList.add('morty')
+      }
+    })
+  }
+  
 }
 
 function loadGrass() {
@@ -111,19 +138,17 @@ function loadCarRight() {
   }
 }
 
-function mortyDies() {
 
-  const livesCounter = document.querySelector('.livesCounter')
-  const mrMeeseeksSpeachBox = document.querySelector('.mrMeeseeksSpeachBox')
-
-  for (let i = 0; i < 399; i++) {
-    if (carsArrayLeft.includes(morty) || carsArrayRight.includes(morty)) {
-      console.log('hit')
-      cells[morty].classList.remove('morty')
-      morty = 10
-      cells[morty].classList.add('morty')
-      livesCounter.innerHTML = `Lives: ${lives -= 1}`
-      mrMeeseeksSpeachBox.innerHTML = '"Existance is PAIN Morty!"'
+function gameOver() {
+  if (lives === 0) {
+    gameFinished = true
+    clearInterval(carRightIntervalId)
+    clearInterval(carLeftIntervalId)
+    clearInterval(mortyDiesIntervalId)
+    for (let i = 0; i < 399; i++) {
+      cells[i].classList.remove('carRight')
+      cells[i].classList.remove('carLeft')
+      cells[i].classList.remove('morty')
     }
   }
 }
@@ -184,6 +209,8 @@ console.log('hello')
 mortyDiesIntervalId = setInterval(() => {
   mortyDies()
 }, 1)
+
+
 
 
 
