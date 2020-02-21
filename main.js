@@ -144,13 +144,15 @@ function moveCarsLeft() {
         // we reassign carsArray[i] to equal carsArray[i] + width (end of row)
         carsArrayLeft[i] = carsArrayLeft[i] + width
       }
-      // currently = cell 20
+      // currently = cell 40
       cells[carsArrayLeft[i]].classList.remove('carLeft')
 
       carsArrayLeft[i]--
-      // minus 1 cell to equal cell 38
+      // minus 1 cell to equal cell 39
+
       cells[carsArrayLeft[i]].classList.add('carLeft')
       // adding car to 39
+
     }
 
   }, 300)
