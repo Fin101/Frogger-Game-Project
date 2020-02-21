@@ -8,15 +8,18 @@ function setUpGame() {
   moveCarsRight()
   moveCarsLeft()
 
+
 }
 
-let morty = 390
+let morty = 10
 const carsArrayLeft = [20, 25, 29, 34, 38, 45, 51, 57, 62, 70, 73, 77, 83, 89, 99, 105, 109, 114, 120, 124, 129, 133, 139, 141, 146, 150, 155, 160, 163, 167, 171, 174, 179, 187, 190, 195]
 const carsArrayRight = [200, 205, 208, 213, 217, 220, 222, 227, 235, 339, 245, 249, 255, 257, 260, 265, 270, 278, 281, 288, 291, 296, 300, 309, 315, 319, 325, 330, 333, 340, 346, 350, 354, 361, 366, 370, 376]
 const width = 20
 const gridCellCount = width * width
 const cells = []
 let carIntervalId
+let lives = 3
+
 
 function loadGrid() {
 
@@ -108,9 +111,27 @@ function loadCarRight() {
   }
 }
 
+function mortyDies() {
+
+  const livesCounter = document.querySelector('.livesCounter')
+  const mrMeeseeksSpeachBox = document.querySelector('.mrMeeseeksSpeachBox')
+
+  for (let i = 0; i < 399; i++) {
+    if (carsArrayLeft.includes(morty) || carsArrayRight.includes(morty)) {
+      console.log('hit')
+      cells[morty].classList.remove('morty')
+      morty = 10
+      cells[morty].classList.add('morty')
+      livesCounter.innerHTML = `Lives: ${lives -= 1}`
+      mrMeeseeksSpeachBox.innerHTML = '"Existance is PAIN Morty!"'
+    }
+  }
+}
+
 function moveCarsRight() {
   // setting interval for all the cars
   carRightIntervalId = setInterval(() => {
+    // mortyDies()
     // looping through each car
     for (let i = 0; i < carsArrayRight.length; i++) {
       // checking if car is at the end of the row. If the remainder of carsArray[i] divided by width is equal to 19, then we know it's hit the edge of the grid.
@@ -133,6 +154,7 @@ function moveCarsRight() {
 }
 
 function moveCarsLeft() {
+  // mortyDies()
   // setting interval for all the cars
   carLeftIntervalId = setInterval(() => {
     // looping through each car
@@ -157,5 +179,12 @@ function moveCarsLeft() {
 
   }, 300)
 }
+console.log('hello')
+
+mortyDiesIntervalId = setInterval(() => {
+  mortyDies()
+}, 1)
+
+
 
 window.addEventListener('DOMContentLoaded', setUpGame)

@@ -28,7 +28,7 @@ body {
   margin: 50px;
 }
 
-.box {
+.mrMeeseeksSpeachBox {
   width: 300px;
   margin: 10px;
   border: 1px solid black;
@@ -58,7 +58,7 @@ body {
   width: 250px;
 }
 
-.lives {
+.livesCounter {
   align-self: center;
   align-content: center;
   border: 1px solid black;
@@ -121,11 +121,11 @@ body {
 }
 
 .grass {
-  background-image: url('https://cdn2.f-cdn.com/contestentries/44321/396651/526e0f3be440b_thumb900.jpg');
+  background-color:  rgba(0, 0, 0, 0.5);
 }
 
 .road {
-background-color: rgba(124, 124, 124, 0.5);
+background-color: rgba(22, 22, 22, 0.5);
 }
 
 .water {
