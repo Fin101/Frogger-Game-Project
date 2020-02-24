@@ -3,22 +3,24 @@ function setUpGame() {
 
   loadGrid()
   moveMorty()
-  loadGrass()
-  loadRoad()
   moveCarsRight()
   moveCarsLeft()
+ 
+  // reset()
 
 
 }
 
 let morty = 10
-const carsArrayLeft = [20, 25, 29, 34, 38, 45, 51, 57, 62, 70, 73, 77, 83, 89, 99, 105, 109, 114, 120, 124, 129, 133, 139, 141, 146, 150, 155, 160, 163, 167, 171, 174, 179, 187, 190, 195]
-const carsArrayRight = [200, 205, 208, 213, 217, 220, 222, 227, 235, 339, 245, 249, 255, 257, 260, 265, 270, 278, 281, 288, 291, 296, 300, 309, 315, 319, 325, 330, 333, 340, 346, 350, 354, 361, 366, 370, 376]
+const carsArrayLeft = [20, 29, 38, 45, 57, 62, 70, 77, 89, 99, 105, 114, 124, 133, 139, 146, 150, 155, 160, 167, 171, 174, 187, 195]
+const carsArrayRight = [200, 208, 217, 222, 235, 245, 255, 260, 270, 278, 288, 296, 300, 309, 315, 325, 330, 340, 346, 354, 361, 370, 376]
+const dragonBallsArray = [30, 46, 56, 60, 69, 80, 90, 97, 103, 111, 120, 129, 140, 149, 156, 165, 170, 180, 188, 199, 210, 221, 233, 249, 261, 272, 280, 289, 295, 310, 316, 326, 335, 343, 355, 362, 372]
 const width = 20
 const gridCellCount = width * width
 const cells = []
 let carIntervalId
 let lives = 3
+let score = 0
 let carRightIntervalId
 let carLeftIntervalId
 let mortyDiesIntervalId
@@ -34,6 +36,17 @@ function loadGrid() {
     cell.classList.add('cell')
     if (i === morty) {
       cell.classList.add('morty')
+    }
+    if (dragonBallsArray.includes(i)) {
+      console.log(i)
+      cell.classList.add('dragonBalls')
+    }
+
+    if (carsArrayRight.includes(i)) {
+      cell.classList.add('carRight')
+    }
+    if (carsArrayLeft.includes(i)) {
+      cell.classList.add('carLeft')
     }
     grid.appendChild(cell)
     cells.push(cell)
@@ -61,7 +74,7 @@ function mortyDies() {
 
 function moveMorty() {
   if (gameFinished === true) {
-    return 
+    return
   } else {
     document.addEventListener('keydown', (event) => {
       if (event.key === 'ArrowRight') {
@@ -93,47 +106,20 @@ function moveMorty() {
         morty += width
         cells[morty].classList.add('morty')
       }
+      dragonBalls()
     })
   }
-  
+
 }
 
-function loadGrass() {
-  for (let i = 380; i <= 399; i++) {
-    cells[i].classList.add('grass')
-  }
-  // for (let i = 180; i <= 199; i++) {
-  //   cells[i].classList.add('grass')
-  // }
-  for (let i = 0; i <= 19; i++) {
-    cells[i].classList.add('grass')
-  }
-}
+function dragonBalls() {
 
-function loadRoad() {
-  for (let i = 20; i <= 379; i++) {
-    cells[i].classList.add('road')
-  }
-}
+  const scoreCounter = document.querySelector('.scoreCounter')
 
-// function loadWater() {
-//   for (let i = 20; i <= 179; i++) {
-//     cells[i].classList.add('water')
-//   }
-// }
-
-function loadCarLeft() {
-  for (let i = 0; i < 200; i++) {
-    if (carsArrayLeft.includes(i)) {
-      cells[i].classList.add('carLeft')
-    }
-  }
-}
-
-function loadCarRight() {
-  for (let i = 201; i < 379; i++) {
-    if (carsArrayRight.includes(i)) {
-      cells[i].classList.add('carRight')
+  for (let i = 0; i < 399; i++) {
+    if (cells[i].className.includes('morty') && cells[i].className.includes('dragonBalls')) {
+      cells[i].classList.remove('dragonBalls')
+      scoreCounter.innerHTML = `Score: ${score += 10}`
     }
   }
 }
@@ -149,6 +135,7 @@ function gameOver() {
       cells[i].classList.remove('carRight')
       cells[i].classList.remove('carLeft')
       cells[i].classList.remove('morty')
+      cells[i].classList.remove('dragonBalls')
     }
   }
 }
@@ -209,6 +196,12 @@ console.log('hello')
 mortyDiesIntervalId = setInterval(() => {
   mortyDies()
 }, 1)
+
+// const resetButton = document.querySelector('.reset')
+
+// document.getElementById('reset').addEventListener('click', function() {
+//   lives = 3
+// })
 
 
 
