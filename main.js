@@ -5,7 +5,8 @@ function setUpGame() {
   moveMorty()
   moveCarsRight()
   moveCarsLeft()
- 
+  timer()
+
   // reset()
 
 
@@ -21,6 +22,7 @@ const cells = []
 let carIntervalId
 let lives = 3
 let score = 0
+let count = 15
 let carRightIntervalId
 let carLeftIntervalId
 let mortyDiesIntervalId
@@ -124,9 +126,29 @@ function dragonBalls() {
   }
 }
 
+function timer() {
+
+  const timeCounter = document.querySelector('.timeCounter')
+
+  let timer = setInterval(function () {
+    console.log(count)
+    count--
+    timeCounter.innerHTML = `Time: ${count}`
+    if (count === 0) {
+      stopInterval()
+      gameOver()
+    }
+  }, 1000)
+
+  let stopInterval = function () {
+    console.log('time is up!')
+    clearInterval(timer)
+  }
+}
+
 
 function gameOver() {
-  if (lives === 0) {
+  if (lives === 0 || count === 0) {
     gameFinished = true
     clearInterval(carRightIntervalId)
     clearInterval(carLeftIntervalId)
