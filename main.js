@@ -22,7 +22,7 @@ const cells = []
 let carIntervalId
 let lives = 3
 let score = 0
-let count = 15
+let count = 30
 let carRightIntervalId
 let carLeftIntervalId
 let mortyDiesIntervalId
@@ -32,6 +32,9 @@ let gameFinished = false
 function loadGrid() {
 
   const grid = document.querySelector('.grid')
+  const gameOverScreen = document.querySelector('.gameOverScreen')
+
+  gameOverScreen.style.display = 'none'
 
   for (let i = 0; i < gridCellCount; i++) {
     const cell = document.createElement('div')
@@ -58,7 +61,7 @@ function loadGrid() {
 
 function mortyDies() {
 
-  const livesCounter = document.querySelector('.livesCounter')
+  const livesCounter = document.querySelector('#livesCounter')
   const mrMeeseeksSpeachBox = document.querySelector('.mrMeeseeksSpeachBox')
 
   for (let i = 0; i < 399; i++) {
@@ -70,6 +73,7 @@ function mortyDies() {
       livesCounter.innerHTML = `Lives: ${lives -= 1}`
       mrMeeseeksSpeachBox.innerHTML = '"Existance is PAIN Morty!"'
       gameOver()
+      document.getElementById('livesCounter').style.backgroundColor = 'rgba(200, 0, 0, 0.5)'
     }
   }
 }
@@ -114,53 +118,66 @@ function moveMorty() {
 
 }
 
-function dragonBalls() {
-
-  const scoreCounter = document.querySelector('.scoreCounter')
-
-  for (let i = 0; i < 399; i++) {
-    if (cells[i].className.includes('morty') && cells[i].className.includes('dragonBalls')) {
-      cells[i].classList.remove('dragonBalls')
-      scoreCounter.innerHTML = `Score: ${score += 10}`
-    }
-  }
-}
-
 function timer() {
 
-  const timeCounter = document.querySelector('.timeCounter')
+  const timeCounter = document.querySelector('#timeCounter')
+  const mrMeeseeksSpeachBox = document.querySelector('.mrMeeseeksSpeachBox')
 
   let timer = setInterval(function () {
     console.log(count)
+    // Minus 1 from count each second(1000)
     count--
-    timeCounter.innerHTML = `Time: ${count}`
+    timeCounter.innerHTML = `Time: ${count} seconds`
+    if (count <= 5) {
+      document.getElementById('timeCounter').style.backgroundColor = 'rgba(200, 0, 0, 0.5)'
+    }
     if (count === 0) {
+      // If count = 0, call gameover and stopInterval functions
       stopInterval()
       gameOver()
+      mrMeeseeksSpeachBox.innerHTML = '"Time\'s up Morty"'
+    }
+    if (lives === 0) {
+      stopInterval()
     }
   }, 1000)
 
   let stopInterval = function () {
     console.log('time is up!')
+
     clearInterval(timer)
   }
 }
 
 
 function gameOver() {
+
+  const grid = document.querySelector('.grid')
+  const gameOverScreen = document.querySelector('.gameOverScreen')
+
   if (lives === 0 || count === 0) {
     gameFinished = true
     clearInterval(carRightIntervalId)
     clearInterval(carLeftIntervalId)
     clearInterval(mortyDiesIntervalId)
-    for (let i = 0; i < 399; i++) {
-      cells[i].classList.remove('carRight')
-      cells[i].classList.remove('carLeft')
-      cells[i].classList.remove('morty')
-      cells[i].classList.remove('dragonBalls')
-    }
+    grid.remove('grid')
+    // for (let i = 0; i < 399; i++) {
+    //   cells[i].classList.remove('carRight')
+    //   cells[i].classList.remove('carLeft')
+    //   cells[i].classList.remove('morty')
+    //   cells[i].classList.remove('dragonBalls')
+    // }
+    // loadGameOverScreen()
+    gameOverScreen.style.display = 'block'
   }
 }
+
+// function loadGameOverScreen() {
+
+//   const gameOverScreen = document.querySelector('.gameOverScreen')
+//   gameOverScreen.classList.add('.gameOverScreen')
+
+// }
 
 function moveCarsRight() {
   // setting interval for all the cars
@@ -213,6 +230,30 @@ function moveCarsLeft() {
 
   }, 300)
 }
+
+function dragonBalls() {
+
+  const scoreCounter = document.querySelector('#scoreCounter')
+  const mrMeeseeksSpeachBox = document.querySelector('.mrMeeseeksSpeachBox')
+
+  for (let i = 0; i < 399; i++) {
+    if (cells[i].className.includes('morty') && cells[i].className.includes('dragonBalls')) {
+      cells[i].classList.remove('dragonBalls')
+      scoreCounter.innerHTML = `Score: ${score += 10}`
+      // } else if (cells[i].className.includes('carLeft') && cells[i].className.includes('dragonBalls')) {
+      //   cells[i].classList.remove('dragonBalls')
+      if (score < 50) {
+        document.getElementById('scoreCounter').style.backgroundColor = 'rgba(200, 0, 0, 0.5)'
+        mrMeeseeksSpeachBox.innerHTML = '"Oooohh yeeaahhh"'
+      } else if (score > 130) {
+        document.getElementById('scoreCounter').style.backgroundColor = 'rgba(0, 230, 64, 0.5)'
+      } else {
+        document.getElementById('scoreCounter').style.backgroundColor = 'rgba(0, 0, 0, 0.5)'
+      }
+    }
+  }
+}
+
 console.log('hello')
 
 mortyDiesIntervalId = setInterval(() => {
