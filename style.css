@@ -171,6 +171,13 @@ body {
   background-position: center;
 }
 
+.dragonBalls {
+  background-image: url(images/dragonBall2.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .carRight {
   background-image: url(images/slugRight.png);
   /* transform: rotate(90deg); */
@@ -187,11 +194,6 @@ body {
   background-position: center;
 }
 
-.dragonBalls {
-  background-image: url(images/dragonBall2.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
+
 
 

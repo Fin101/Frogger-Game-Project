@@ -9,7 +9,10 @@ function setUpGame() {
 let morty = 10
 const carsArrayLeft = [20, 29, 38, 45, 57, 62, 70, 77, 89, 99, 105, 114, 124, 133, 139, 146, 150, 155, 160, 167, 171, 174, 187, 195]
 const carsArrayRight = [200, 208, 217, 222, 235, 245, 255, 260, 270, 278, 288, 296, 300, 309, 315, 325, 330, 340, 346, 354, 361, 370, 376]
-const dragonBallsArray = [30, 46, 56, 60, 69, 80, 90, 97, 103, 111, 120, 129, 140, 149, 156, 165, 170, 180, 188, 199, 210, 221, 233, 249, 261, 272, 280, 289, 295, 310, 316, 326, 335, 343, 355, 362, 372]
+// const dragonBallsArray = [30, 46, 56, 60, 69, 80, 90, 97, 103, 111, 120, 129, 140, 149, 156, 165, 170, 180, 188, 199, 210, 221, 233, 249, 261, 272, 280, 289, 295, 310, 316, 326, 335, 343, 355, 362, 372]
+// const dragonBallsArray = ['ball1', 'ball2', 'ball3', 'ball4', 'ball5']
+// RandomCellId = 'cell_' + Math.round(Math.random() * 360 + 19)
+// console.log(RandomCellId)
 const width = 20
 const gridCellCount = width * width
 const cells = []
@@ -68,10 +71,10 @@ function inPlay() {
       if (i === morty) {
         cell.classList.add('morty')
       }
-      if (dragonBallsArray.includes(i)) {
-        console.log(i)
-        cell.classList.add('dragonBalls')
-      }
+      // if (dragonBallsArray.includes(i)) {
+      //   console.log(i)
+      //   cell.classList.add('dragonBalls')
+      // }
 
       if (carsArrayRight.includes(i)) {
         cell.classList.add('carRight')
@@ -82,6 +85,12 @@ function inPlay() {
       grid.appendChild(cell)
       cells.push(cell)
       cell.id = i
+    }
+
+    for (let i = 0; i < 30; i++) {
+      let randomIndex = Math.round(Math.random() * 360 + 19)
+      cells[randomIndex].classList.add('dragonBalls')
+
     }
   }
 
