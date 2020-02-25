@@ -19,7 +19,7 @@ const cells = []
 let carIntervalId
 let lives = 3
 let score = 0
-let count = 30
+let count = 45
 let carRightIntervalId
 let carLeftIntervalId
 let mortyDiesIntervalId
@@ -87,10 +87,22 @@ function inPlay() {
       cell.id = i
     }
 
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 50; i++) {
       let randomIndex = Math.round(Math.random() * 360 + 19)
       cells[randomIndex].classList.add('dragonBalls')
+    }
 
+    for (let i = 0; i < 5; i++) {
+      let randomIndex = Math.round(Math.random() * 360 + 19)
+      cells[randomIndex].classList.add('blueDragonBalls')
+    }
+
+    for (let i = 0; i < 20; i++) {
+      cells[i].style.backgroundColor = 'rgba(46, 204, 113, 0.5)'
+    }
+
+    for (let i = 380; i < 400; i++) {
+      cells[i].style.backgroundColor = 'rgba(46, 204, 113, 0.5)'
     }
   }
 
@@ -190,23 +202,6 @@ function inPlay() {
     }
   }
 
-
-
-  function gameOver() {
-
-    const grid = document.querySelector('.grid')
-    const gameOverScreen = document.querySelector('.gameOverScreen')
-
-    if (lives === 0 || count === 0) {
-      gameFinished = true
-      clearInterval(carRightIntervalId)
-      clearInterval(carLeftIntervalId)
-      clearInterval(mortyDiesIntervalId)
-      grid.remove('grid')
-      gameOverScreen.style.display = 'block'
-    }
-  }
-
   function moveCarsRight() {
     // setting interval for all the cars
     carRightIntervalId = setInterval(() => {
@@ -279,8 +274,29 @@ function inPlay() {
           document.getElementById('scoreCounter').style.backgroundColor = 'rgba(0, 0, 0, 0.5)'
         }
       }
+      if (cells[i].className.includes('morty') && cells[i].className.includes('blueDragonBalls')) {
+        cells[i].classList.remove('blueDragonBalls')
+        scoreCounter.innerHTML = `Score: ${score += 50}`
+      }
     }
   }
+
+  function gameOver() {
+
+    const grid = document.querySelector('.grid')
+    const gameOverScreen = document.querySelector('.gameOverScreen')
+
+    if (lives === 0 || count === 0) {
+      gameFinished = true
+      clearInterval(carRightIntervalId)
+      clearInterval(carLeftIntervalId)
+      clearInterval(mortyDiesIntervalId)
+      grid.remove('grid')
+      gameOverScreen.style.display = 'block'
+    }
+  }
+
+
 
   console.log('hello')
 
