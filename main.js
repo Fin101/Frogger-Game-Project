@@ -32,12 +32,14 @@ function loadStartScreen() {
   const grid = document.querySelector('.grid')
   const gameOverScreen = document.querySelector('.gameOverScreen')
   const startScreen = document.querySelector('.startScreen')
+  const leaderboardScreen = document.querySelector('.leaderboardScreen')
   const startButton = document.querySelector('#startButton')
 
 
   if (loading) {
     grid.style.display = 'none'
     gameOverScreen.style.display = 'none'
+    leaderboardScreen.style.display = 'none'
     startScreen.style.display = 'block'
   }
 
@@ -60,9 +62,12 @@ function inPlay() {
     const grid = document.querySelector('.grid')
     const gameOverScreen = document.querySelector('.gameOverScreen')
     const startScreen = document.querySelector('.startScreen')
+    const leaderboardScreen = document.querySelector('.leaderboardScreen')
+
 
     startScreen.style.display = 'none'
     gameOverScreen.style.display = 'none'
+    leaderboardScreen.style.display = 'none'
     grid.style.display = 'flex'
 
     for (let i = 0; i < gridCellCount; i++) {
@@ -110,6 +115,7 @@ function inPlay() {
 
     const livesCounter = document.querySelector('#livesCounter')
     const mrMeeseeksSpeachBox = document.querySelector('.mrMeeseeksSpeachBox')
+    const scoreCounter = document.querySelector('#scoreCounter')
 
     for (let i = 0; i < 399; i++) {
       if (carsArrayLeft.includes(morty) || carsArrayRight.includes(morty)) {
@@ -121,6 +127,7 @@ function inPlay() {
         mrMeeseeksSpeachBox.innerHTML = '"Existance is PAIN Morty!"'
         gameOver()
         document.getElementById('livesCounter').style.backgroundColor = 'rgba(200, 0, 0, 0.5)'
+        scoreCounter.innerHTML = `Schmeckles: ${score -= 40}`
       }
     }
   }
@@ -262,7 +269,7 @@ function inPlay() {
     for (let i = 0; i < 399; i++) {
       if (cells[i].className.includes('morty') && cells[i].className.includes('dragonBalls')) {
         cells[i].classList.remove('dragonBalls')
-        scoreCounter.innerHTML = `Score: ${score += 10}`
+        scoreCounter.innerHTML = `Schmeckles: ${score += 10}`
         // } else if (cells[i].className.includes('carLeft') && cells[i].className.includes('dragonBalls')) {
         //   cells[i].classList.remove('dragonBalls')
         if (score < 50) {
@@ -276,7 +283,7 @@ function inPlay() {
       }
       if (cells[i].className.includes('morty') && cells[i].className.includes('blueDragonBalls')) {
         cells[i].classList.remove('blueDragonBalls')
-        scoreCounter.innerHTML = `Score: ${score += 50}`
+        scoreCounter.innerHTML = `Schmeckles: ${score += 50}`
       }
     }
   }
@@ -285,6 +292,7 @@ function inPlay() {
 
     const grid = document.querySelector('.grid')
     const gameOverScreen = document.querySelector('.gameOverScreen')
+    const viewLeaderboardButton = document.querySelector('#viewLeaderboardButton')
 
     if (lives === 0 || count === 0) {
       gameFinished = true
@@ -294,6 +302,10 @@ function inPlay() {
       grid.remove('grid')
       gameOverScreen.style.display = 'block'
     }
+
+    viewLeaderboardButton.addEventListener('click', () => {
+      loadLeaderboard()
+    })
   }
 
 
@@ -306,13 +318,18 @@ function inPlay() {
 
 }
 
-// const resetButton = document.querySelector('.reset')
+function loadLeaderboard() {
+  const grid = document.querySelector('.grid')
+  const gameOverScreen = document.querySelector('.gameOverScreen')
+  const startScreen = document.querySelector('.startScreen')
+  const leaderboardScreen = document.querySelector('.leaderboardScreen')
 
-// document.getElementById('reset').addEventListener('click', function() {
-//   lives = 3
-// })
 
-
+  startScreen.style.display = 'none'
+  gameOverScreen.style.display = 'none'
+  leaderboardScreen.style.display = 'block'
+  grid.style.display = 'none'
+}
 
 
 

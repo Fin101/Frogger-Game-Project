@@ -16,7 +16,7 @@ body {
   background-repeat: no-repeat;
 }
 
-.startScreen, .gameOverScreen {
+.startScreen, .gameOverScreen, .leaderboardScreen {
   display: flex;
   flex-direction: row;
   border: 1px solid  rgba(0, 0, 0, 0.8);
@@ -163,7 +163,7 @@ body {
   flex-wrap: wrap;
 } */
 
-#startButton, #viewLeaderboard, #reset {
+#startButton, #viewLeaderboardButton, #reset {
   align-self: center;
   align-content: center;
   border: 1px solid black;
