@@ -13,6 +13,8 @@ const carsArrayRight = [200, 208, 217, 222, 235, 245, 255, 260, 270, 278, 288, 2
 // const dragonBallsArray = ['ball1', 'ball2', 'ball3', 'ball4', 'ball5']
 // RandomCellId = 'cell_' + Math.round(Math.random() * 360 + 19)
 // console.log(RandomCellId)
+const cellsArrayRight = [19, 39, 59, 79, 99, 119, 139, 159, 179, 199, 219, 239, 259, 279, 299, 319, 339, 359, 379, 399]
+const cellsArrayLeft = [0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380]
 const width = 20
 const gridCellCount = width * width
 const cells = []
@@ -138,14 +140,18 @@ function inPlay() {
     } else {
       document.addEventListener('keydown', (event) => {
         if (event.key === 'ArrowRight') {
-          if (morty === cells.length - 1) {
+          if (cellsArrayRight.includes(morty)) {
+            return
+          } else if (morty === cells.length - 1) {
             return
           }
           cells[morty].classList.remove('morty')
           morty += 1
           cells[morty].classList.add('morty')
         } else if (event.key === 'ArrowLeft') {
-          if (morty === 0) {
+          if (cellsArrayLeft.includes(morty)) {
+            return
+          } else if (morty === 0) {
             return
           }
           cells[morty].classList.remove('morty')
@@ -209,7 +215,7 @@ function inPlay() {
         gameOver()
       }
     }, 200)
-  
+
   }
 
   function moveCarsRight() {
@@ -351,6 +357,7 @@ function loadLeaderboard() {
     addScoreButton.addEventListener('click', () => {
       const newName = prompt('Enter player name')
       const player = { name: newName, playerScore: score }
+      console.log(scores)
       scores.push(player)
       renderList(scores, scoresList)
       if (localStorage) {
@@ -367,8 +374,12 @@ function loadLeaderboard() {
     })
     scoresList.innerHTML = array.join('')
 
-    if (scores.length > 19) {
-      scores.pop()
+    for (let i = 0; i < scores.length; i++) {
+      if (score <= scores[i]) {
+        alert('You\'ve failed to make the board')
+      } else if (scores.length > 20) {
+        scores.pop()
+      }
     }
   }
 }
