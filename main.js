@@ -66,7 +66,7 @@ function inPlay() {
 
 
     startScreen.style.display = 'none'
-    gameOverScreen.style.display = 'none'
+    // gameOverScreen.style.display = 'none'
     leaderboardScreen.style.display = 'none'
     grid.style.display = 'flex'
 
@@ -93,12 +93,12 @@ function inPlay() {
     }
 
     for (let i = 0; i < 50; i++) {
-      let randomIndex = Math.round(Math.random() * 360 + 19)
+      let randomIndex = Math.round(Math.random() * 359 + 20)
       cells[randomIndex].classList.add('dragonBalls')
     }
 
     for (let i = 0; i < 5; i++) {
-      let randomIndex = Math.round(Math.random() * 360 + 19)
+      let randomIndex = Math.round(Math.random() * 359 + 20)
       cells[randomIndex].classList.add('blueDragonBalls')
     }
 
@@ -125,7 +125,7 @@ function inPlay() {
         cells[morty].classList.add('morty')
         livesCounter.innerHTML = `Lives: ${lives -= 1}`
         mrMeeseeksSpeachBox.innerHTML = '"Existance is PAIN Morty!"'
-        gameOver()
+        // gameOver()
         document.getElementById('livesCounter').style.backgroundColor = 'rgba(200, 0, 0, 0.5)'
         scoreCounter.innerHTML = `Schmeckles: ${score -= 40}`
       }
@@ -170,7 +170,6 @@ function inPlay() {
         dragonBalls()
       })
     }
-
   }
 
   function timer() {
@@ -183,7 +182,7 @@ function inPlay() {
     const timeCounter = document.querySelector('#timeCounter')
     const mrMeeseeksSpeachBox = document.querySelector('.mrMeeseeksSpeachBox')
 
-    let timer = setInterval(function () {
+    let timer = setInterval(() => {
       console.log(count)
       // Minus 1 from count each second(1000)
       count--
@@ -191,22 +190,26 @@ function inPlay() {
       if (count <= 5) {
         document.getElementById('timeCounter').style.backgroundColor = 'rgba(200, 0, 0, 0.5)'
       }
+    }, 1000)
+    const testInterval = setInterval(() => {
       if (count === 0) {
         // If count = 0, call gameover and stopInterval functions
-        stopInterval()
+        // stopInterval()
+        console.log('times up!')
+        clearInterval(timer)
+        clearInterval(testInterval)
         gameOver()
         mrMeeseeksSpeachBox.innerHTML = '"Time\'s up Morty"'
       }
       if (lives === 0) {
-        stopInterval()
+        console.log('no more lives!')
+        // stopInterval()
+        clearInterval(testInterval)
+        clearInterval(timer)
+        gameOver()
       }
-    }, 1000)
-
-    let stopInterval = function () {
-      console.log('time is up!')
-
-      clearInterval(timer)
-    }
+    }, 200)
+  
   }
 
   function moveCarsRight() {
@@ -289,26 +292,28 @@ function inPlay() {
   }
 
   function gameOver() {
+    console.log('gameOver()')
 
     const grid = document.querySelector('.grid')
     const gameOverScreen = document.querySelector('.gameOverScreen')
     const viewLeaderboardButton = document.querySelector('#viewLeaderboardButton')
 
     if (lives === 0 || count === 0) {
+      // console.log(grid)
       gameFinished = true
       clearInterval(carRightIntervalId)
       clearInterval(carLeftIntervalId)
       clearInterval(mortyDiesIntervalId)
-      grid.remove('grid')
+      // grid.remove('grid')
+      grid.style.display = 'none'
       gameOverScreen.style.display = 'block'
     }
 
     viewLeaderboardButton.addEventListener('click', () => {
+      console.log('eventListener')
       loadLeaderboard()
     })
   }
-
-
 
   console.log('hello')
 
@@ -319,16 +324,53 @@ function inPlay() {
 }
 
 function loadLeaderboard() {
-  const grid = document.querySelector('.grid')
+
+  console.log(1)
   const gameOverScreen = document.querySelector('.gameOverScreen')
-  const startScreen = document.querySelector('.startScreen')
   const leaderboardScreen = document.querySelector('.leaderboardScreen')
 
+  displayScore()
 
-  startScreen.style.display = 'none'
   gameOverScreen.style.display = 'none'
   leaderboardScreen.style.display = 'block'
-  grid.style.display = 'none'
+
+  function displayScore() {
+
+    let scores = []
+    const scoresList = document.querySelector('ol')
+    const addScoreButton = document.querySelector('#addScoreButton')
+
+    if (localStorage) {
+      const players = JSON.parse(localStorage.getItem('players'))
+      if (players) {
+        scores = players
+        renderList(scores, scoresList)
+      }
+    }
+
+    addScoreButton.addEventListener('click', () => {
+      const newName = prompt('Enter player name')
+      const player = { name: newName, playerScore: score }
+      scores.push(player)
+      renderList(scores, scoresList)
+      if (localStorage) {
+        localStorage.setItem('players', JSON.stringify(scores))
+      }
+    })
+  }
+
+  function renderList(scores, scoresList) {
+    const array = scores.sort((playerA, playerB) => playerB.playerScore - playerA.playerScore).map(player => {
+      return `<li>
+        ${player.name} has <strong>${player.playerScore}</strong> schmeckles.
+      </li>`
+    })
+    scoresList.innerHTML = array.join('')
+
+    if (scores.length > 19) {
+      scores.pop()
+    }
+  }
 }
 
 
