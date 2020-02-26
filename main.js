@@ -104,6 +104,14 @@ function inPlay() {
       cells[randomIndex].classList.add('blueDragonBalls')
     }
 
+    for (let i = 0; i < 1; i++) {
+      // if (count < 40) {
+      let randomIndex = Math.round(Math.random() * 359 + 20)
+      cells[randomIndex].classList.add('schmecklesBox')
+      console.log('schmecklesBox')
+      // }
+    }
+
     for (let i = 0; i < 20; i++) {
       cells[i].style.backgroundColor = 'rgba(46, 204, 113, 0.5)'
     }
@@ -180,6 +188,8 @@ function inPlay() {
 
   function timer() {
 
+    console.log(score)
+
     if (startTimer === true) {
       return
     }
@@ -189,7 +199,6 @@ function inPlay() {
     const mrMeeseeksSpeachBox = document.querySelector('.mrMeeseeksSpeachBox')
 
     let timer = setInterval(() => {
-      console.log(count)
       // Minus 1 from count each second(1000)
       count--
       timeCounter.innerHTML = `Time: ${count} seconds`
@@ -293,6 +302,10 @@ function inPlay() {
       if (cells[i].className.includes('morty') && cells[i].className.includes('blueDragonBalls')) {
         cells[i].classList.remove('blueDragonBalls')
         scoreCounter.innerHTML = `Schmeckles: ${score += 50}`
+      }
+      if (cells[i].className.includes('morty') && cells[i].className.includes('schmecklesBox')) {
+        cells[i].classList.remove('schmecklesBox')
+        scoreCounter.innerHTML = `Schmeckles: ${score += Math.floor(Math.random() * 150)}`
       }
     }
   }

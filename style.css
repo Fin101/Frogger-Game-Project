@@ -236,6 +236,13 @@ body {
   background-position: center;
 }
 
+.schmecklesBox {
+  background-image: url(images/chest.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .carRight {
   background-image: url(images/slugRight.png);
   /* transform: rotate(90deg); */
