@@ -38,6 +38,10 @@ audioCoin.src = 'audio/coin.wav'
 audioCoin.playbackRate = 2
 audioCoin.volume = 0.1
 
+// const countdownAudio = new Audio()
+// countdownAudio.src = 'audio/Countdownwav.wav'
+// countdownAudio.volume = 0.2
+
 const audioMortyDies = new Audio()
 audioMortyDies.src = 'audio/mortyDies.wav'
 
@@ -252,6 +256,9 @@ function inPlay() {
       if (count <= 7) {
         timeCounter.classList.add('secondsPulse')
       }
+      // if (count === 3) {
+      //   countdownAudio.play()
+      // }
     }, 1000)
     const testInterval = setInterval(() => {
       if (count === 0) {
