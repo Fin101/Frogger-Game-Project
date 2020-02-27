@@ -188,8 +188,6 @@ function inPlay() {
 
   function timer() {
 
-    console.log(score)
-
     if (startTimer === true) {
       return
     }
@@ -303,10 +301,10 @@ function inPlay() {
         cells[i].classList.remove('blueDragonBalls')
         scoreCounter.innerHTML = `Schmeckles: ${score += 50}`
       }
-      if (cells[i].className.includes('morty') && cells[i].className.includes('schmecklesBox')) {
-        cells[i].classList.remove('schmecklesBox')
-        scoreCounter.innerHTML = `Schmeckles: ${score += Math.floor(Math.random() * 150)}`
-      }
+      // if (cells[i].className.includes('morty') && cells[i].className.includes('schmecklesBox')) {
+      //   cells[i].classList.remove('schmecklesBox')
+      //   scoreCounter.innerHTML = `Schmeckles: ${score += Math.floor(Math.random() * 150)}`
+      // }
     }
   }
 
@@ -359,6 +357,8 @@ function loadLeaderboard() {
     const scoresList = document.querySelector('ol')
     const addScoreButton = document.querySelector('#addScoreButton')
 
+    // localStorage.clear()
+
     if (localStorage) {
       const players = JSON.parse(localStorage.getItem('players'))
       if (players) {
@@ -371,13 +371,26 @@ function loadLeaderboard() {
       const newName = prompt('Enter player name')
       const player = { name: newName, playerScore: score }
       console.log(scores)
-      scores.push(player)
+      // scoreEligibilityCheck(scores)
+      if (score > scores[19].playerScore) {
+        console.log('yes')
+        scores.pop()
+        scores.push(player)
+      }
       renderList(scores, scoresList)
+      
       if (localStorage) {
         localStorage.setItem('players', JSON.stringify(scores))
       }
     })
   }
+
+  // function scoreEligibilityCheck(scores) {
+  //   if (score <= scores[scores.length - 1].score) {
+  //     console.log('yes')
+  //     return true
+  //   }
+  // }
 
   function renderList(scores, scoresList) {
     const array = scores.sort((playerA, playerB) => playerB.playerScore - playerA.playerScore).map(player => {
@@ -387,15 +400,17 @@ function loadLeaderboard() {
     })
     scoresList.innerHTML = array.join('')
 
-    for (let i = 0; i < scores.length; i++) {
-      if (score <= scores[i]) {
-        alert('You\'ve failed to make the board')
-      } else if (scores.length > 20) {
-        scores.pop()
-      }
-    }
+    // for (let i = 0; i < scores.length; i++) {
+    //   console.log('testyouvefailed')
+    // if (score <= scores.score) {
+    //   alert('You\'ve failed to make the board')
+    //   console.log('test7')
+    // } else if (scores.length > 19) {
+    //   scores.pop()
+    // }
   }
 }
+
 
 
 
