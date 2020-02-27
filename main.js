@@ -18,6 +18,31 @@ const cellsArrayLeft = [0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 24
 const width = 20
 const gridCellCount = width * width
 const cells = []
+
+const audioShowMe = new Audio()
+audioShowMe.src = 'audio/Show_me_what_you_got!.wav'
+audioShowMe.volume = 0.3
+
+const audioMyMan = new Audio()
+audioMyMan.src = 'audio/my_man.wav'
+
+const audioDubDub = new Audio()
+audioDubDub.src = 'audio/woo_vu_luvub_dub_dub.wav'
+audioDubDub.volume = 0.4
+
+const audioOwee = new Audio()
+audioOwee.src = 'audio/owee_(1).wav'
+
+const audioCoin = new Audio()
+audioCoin.src = 'audio/coin.wav'
+audioCoin.playbackRate = 2
+audioCoin.volume = 0.1
+
+const backgroundAudio = new Audio()
+backgroundAudio.src = 'audio/schwiftybounce.wav'
+backgroundAudio.volume = 0.05
+backgroundAudio.loop = true
+
 let carIntervalId
 let lives = 3
 let score = 0
@@ -46,6 +71,8 @@ function loadStartScreen() {
   }
 
   startButton.addEventListener('click', () => {
+    audioShowMe.play()
+    backgroundAudio.play()
     inPlay()
   })
 
@@ -104,13 +131,13 @@ function inPlay() {
       cells[randomIndex].classList.add('blueDragonBalls')
     }
 
-    for (let i = 0; i < 1; i++) {
-      // if (count < 40) {
-      let randomIndex = Math.round(Math.random() * 359 + 20)
-      cells[randomIndex].classList.add('schmecklesBox')
-      console.log('schmecklesBox')
-      // }
-    }
+    // for (let i = 0; i < 1; i++) {
+    //   // if (count < 40) {
+    //   let randomIndex = Math.round(Math.random() * 359 + 20)
+    //   cells[randomIndex].classList.add('schmecklesBox')
+    //   console.log('schmecklesBox')
+    //   // }
+    // }
 
     for (let i = 0; i < 20; i++) {
       cells[i].style.backgroundColor = 'rgba(46, 204, 113, 0.5)'
@@ -286,6 +313,7 @@ function inPlay() {
       if (cells[i].className.includes('morty') && cells[i].className.includes('dragonBalls')) {
         cells[i].classList.remove('dragonBalls')
         scoreCounter.innerHTML = `Schmeckles: ${score += 10}`
+        audioCoin.play()
         // } else if (cells[i].className.includes('carLeft') && cells[i].className.includes('dragonBalls')) {
         //   cells[i].classList.remove('dragonBalls')
         if (score < 50) {
@@ -300,6 +328,7 @@ function inPlay() {
       if (cells[i].className.includes('morty') && cells[i].className.includes('blueDragonBalls')) {
         cells[i].classList.remove('blueDragonBalls')
         scoreCounter.innerHTML = `Schmeckles: ${score += 50}`
+        audioMyMan.play()
       }
       // if (cells[i].className.includes('morty') && cells[i].className.includes('schmecklesBox')) {
       //   cells[i].classList.remove('schmecklesBox')
@@ -309,7 +338,9 @@ function inPlay() {
   }
 
   function gameOver() {
-    console.log('gameOver()')
+
+    backgroundAudio.pause()
+    audioOwee.play()
 
     const grid = document.querySelector('.grid')
     const gameOverScreen = document.querySelector('.gameOverScreen')
@@ -376,9 +407,10 @@ function loadLeaderboard() {
         console.log('yes')
         scores.pop()
         scores.push(player)
+        audioDubDub.play()
       }
       renderList(scores, scoresList)
-      
+
       if (localStorage) {
         localStorage.setItem('players', JSON.stringify(scores))
       }
