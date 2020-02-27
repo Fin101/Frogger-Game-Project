@@ -80,7 +80,7 @@ function loadStartScreen() {
     inPlay()
   })
 
-  viewLeaderboardButton.addEventListener('click', () => {
+  viewLeaderboardButton1.addEventListener('click', () => {
     loadLeaderboard()
   })
 
@@ -367,7 +367,7 @@ function inPlay() {
 
     const grid = document.querySelector('.grid')
     const gameOverScreen = document.querySelector('.gameOverScreen')
-    const viewLeaderboardButton = document.querySelector('#viewLeaderboardButton')
+    const viewLeaderboardButton = document.querySelector('#viewLeaderboardButton2')
 
     if (lives === 0 || count === 0) {
       // console.log(grid)
@@ -380,7 +380,7 @@ function inPlay() {
       gameOverScreen.style.display = 'block'
     }
 
-    viewLeaderboardButton.addEventListener('click', () => {
+    viewLeaderboardButton2.addEventListener('click', () => {
       console.log('eventListener')
       loadLeaderboard()
     })

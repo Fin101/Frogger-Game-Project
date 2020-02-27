@@ -127,6 +127,7 @@ body {
   padding: 10px;
   margin: 10px;
   width: 250px;
+  height: 40px;
 }
 
 .secondsPulse {
@@ -218,7 +219,7 @@ body {
   flex-wrap: wrap;
 } */
 
-#startButton, #viewLeaderboardButton, #addScoreButton, #reset {
+#startButton, #viewLeaderboardButton1, #viewLeaderboardButton2, #addScoreButton, #reset {
   align-self: center;
   align-content: center;
   border: 1px solid black;
@@ -227,20 +228,22 @@ body {
   border-radius: 10px;
   padding: 10px;
   margin: 10px;
+  margin-top: 5px;
   width: 250px;
+  height: 40px;
 }
 
-#startButton:hover, #viewLeaderboardButton:hover, #addScoreButton:hover, #reset:hover {
+#startButton:hover, #viewLeaderboardButton1:hover, #viewLeaderboardButton2:hover, #addScoreButton:hover, #reset:hover {
   background-color: rgba(122, 0, 0, 0.8)
 }
 
-#startButton:active, #viewLeaderboardButton:active, #addScoreButton:active, #reset:active  {
+#startButton:active, #viewLeaderboardButton1:active, #viewLeaderboardButton2:active, #addScoreButton:active, #reset:active  {
   background-color: rgba(0, 0, 0, 0.8);
   box-shadow: 0 5px rgba(0, 0, 0, 1);
   transform: translateY(4px);
 }
 
-#startButton:focus, #viewLeaderboardButton:focus, #addScoreButton:focus, #reset:focus {
+#startButton:focus, #viewLeaderboardButton1:focus, #viewLeaderboardButton2:focus, #addScoreButton:focus, #reset:focus {
   outline:0;
 }
 
