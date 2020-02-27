@@ -38,6 +38,9 @@ audioCoin.src = 'audio/coin.wav'
 audioCoin.playbackRate = 2
 audioCoin.volume = 0.1
 
+const audioMortyDies = new Audio()
+audioMortyDies.src = 'audio/mortyDies.wav'
+
 const backgroundAudio = new Audio()
 backgroundAudio.src = 'audio/schwiftybounce.wav'
 backgroundAudio.volume = 0.05
@@ -162,9 +165,23 @@ function inPlay() {
         cells[morty].classList.add('morty')
         livesCounter.innerHTML = `Lives: ${lives -= 1}`
         mrMeeseeksSpeachBox.innerHTML = '"Existance is PAIN Morty!"'
-        // gameOver()
-        document.getElementById('livesCounter').style.backgroundColor = 'rgba(200, 0, 0, 0.5)'
         scoreCounter.innerHTML = `Schmeckles: ${score -= 40}`
+        audioMortyDies.play()
+
+        // document.getElementById('livesCounter').classList.add('livesPulse1')
+        // if (lives === 1) {
+        //   document.getElementById('livesCounter').classList.remove('livesPulse1')
+        //   document.getElementById('livesCounter').classList.add('livesPulse2')
+        // }
+        // if (lives === 0) {
+        //   document.getElementById('livesCounter').classList.remove('livesPulse2')
+        //   document.getElementById('livesCounter').classList.add('livesPulse3')
+        // }  
+
+        livesCounter.classList.add('livesPulse1')
+        setTimeout(() => {
+          livesCounter.classList.remove('livesPulse1')
+        }, 2000)
       }
     }
   }
@@ -227,8 +244,8 @@ function inPlay() {
       // Minus 1 from count each second(1000)
       count--
       timeCounter.innerHTML = `Time: ${count} seconds`
-      if (count <= 5) {
-        document.getElementById('timeCounter').style.backgroundColor = 'rgba(200, 0, 0, 0.5)'
+      if (count <= 7) {
+        timeCounter.classList.add('secondsPulse')
       }
     }, 1000)
     const testInterval = setInterval(() => {
@@ -341,6 +358,7 @@ function inPlay() {
 
     backgroundAudio.pause()
     audioOwee.play()
+    timeCounter.classList.remove('secondsPulse')
 
     const grid = document.querySelector('.grid')
     const gameOverScreen = document.querySelector('.gameOverScreen')
@@ -408,6 +426,7 @@ function loadLeaderboard() {
         scores.pop()
         scores.push(player)
         audioDubDub.play()
+        addScoreButton.removeEventListener('click')
       }
       renderList(scores, scoresList)
 

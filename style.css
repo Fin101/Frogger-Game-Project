@@ -129,6 +129,42 @@ body {
   width: 250px;
 }
 
+.secondsPulse {
+  animation-name: color;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+.livesPulse1 {
+  animation-name: color;
+  animation-duration: 2s;
+  /* animation-iteration-count: 1; */
+}
+
+/* .livesPulse2 {
+  animation-name: color;
+  animation-duration: 2s;
+  animation-iteration-count: 1;
+}
+
+.livesPulse3 {
+  animation-name: color;
+  animation-duration: 2s;
+  animation-iteration-count: 1; */
+/* } */
+
+@keyframes color {
+  0% {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  50% {
+    background-color: rgba(122, 0, 0, 0.8);
+  }
+  100% {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+}
+
 /* #reset {
   align-self: center;
   align-content: center;
