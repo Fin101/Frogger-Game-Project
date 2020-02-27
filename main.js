@@ -64,6 +64,7 @@ function loadStartScreen() {
   const startScreen = document.querySelector('.startScreen')
   const leaderboardScreen = document.querySelector('.leaderboardScreen')
   const startButton = document.querySelector('#startButton')
+  const viewLeaderboardButton = document.querySelector('#viewLeaderboardButton')
 
 
   if (loading) {
@@ -77,6 +78,10 @@ function loadStartScreen() {
     audioShowMe.play()
     backgroundAudio.play()
     inPlay()
+  })
+
+  viewLeaderboardButton.addEventListener('click', () => {
+    loadLeaderboard()
   })
 
 }
@@ -393,11 +398,13 @@ function loadLeaderboard() {
 
   console.log(1)
   const gameOverScreen = document.querySelector('.gameOverScreen')
+  const startScreen = document.querySelector('.startScreen')
   const leaderboardScreen = document.querySelector('.leaderboardScreen')
 
   displayScore()
 
   gameOverScreen.style.display = 'none'
+  startScreen.style.display = 'none'
   leaderboardScreen.style.display = 'block'
 
   function displayScore() {
@@ -426,7 +433,6 @@ function loadLeaderboard() {
         scores.pop()
         scores.push(player)
         audioDubDub.play()
-        addScoreButton.removeEventListener('click')
       }
       renderList(scores, scoresList)
 
