@@ -2,8 +2,6 @@ function setUpGame() {
   // dom selection now work in here
   // loadGrid()
   loadStartScreen()
-
-
 }
 
 let morty = 10
@@ -47,7 +45,7 @@ audioMortyDies.src = 'audio/mortyDies.wav'
 
 const backgroundAudio = new Audio()
 backgroundAudio.src = 'audio/schwiftybounce.wav'
-backgroundAudio.volume = 0.05
+backgroundAudio.volume = 0.15
 backgroundAudio.loop = true
 
 let carIntervalId
